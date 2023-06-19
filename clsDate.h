@@ -300,255 +300,272 @@ public:
 		}
 		return Date;
 	}
-	clsDate IncreaseDateByOneDay() {
+	static clsDate IncreaseDateByOneDay(clsDate& Date) {
+		 if (IsLastDayInMonth(Date)) {
+			 if (IsLastMonthInYear(Date._Month)) {
+				 Date._Month = 1;
+				 Date._Day = 1;
+				 Date._Year++;
+			 }
+			 else {
+				 Date._Day = 1;
+				 Date._Month++;
+			 }
+		 }
+		 else {
+			 Date._Day++;
+		 }
+		 return Date;
+	 }
+	void IncreaseDateByOneDay() {
+		   IncreaseDateByOneDay(*this);
+	 }
+	clsDate IncreaseDateByXDays(clsDate &Date, int Number) {
+		 for (int i = 0; i < Number; i++) {
+			 Date = IncreaseDateByOneDay(Date);
+		 }
+		 return Date;
+	 }
+	void IncreaseDateByXDays(int Number) {
+		  IncreaseDateByXDays(*this, Number);
+	 }
+	clsDate IncreaseDateByOneWeek(clsDate& Date) {
+		 for (int i = 0; i < 7; i++) {
+			 Date = IncreaseDateByOneDay(Date);
+		 }
+		 return Date;
+	 }
+	void IncreaseDateByOneWeek() {
+		  IncreaseDateByOneWeek(*this);
+	 }
+	clsDate IncreaseDateByXWeeks(clsDate& Date, int Number) {
+		 for (int i = 0; i < Number; i++) {
+			 Date = IncreaseDateByOneWeek(Date);
+		 }
+		 return Date;
+	 }
+	void IncreaseDateByXWeeks(int Number) {
+		  IncreaseDateByXWeeks(*this, Number);
+	 }
+	clsDate IncreaseDateByOneMonth(clsDate& Date) {
+		 if (IsLastMonthInYear(Date._Month)) {
+			 Date._Month = 1;
+			 Date._Year++;
+		 }
+		 else
+			 Date._Month++;
+		 short NumberOfDaysInCurrentMonth = NumberOfDaysInMonth(Date._Year, Date._Month);
+		 if (Date._Day > NumberOfDaysInCurrentMonth) {
+			 Date._Day = NumberOfDaysInCurrentMonth;
+		 }
 
-		return IncreaseDateByOneDay(*this);
-	}
-	clsDate IncreaseDateByXDays(clsDate Date, int Number) {
-		for (int i = 0; i < Number; i++) {
-			Date = IncreaseDateByOneDay(Date);
-		}
-		return Date;
-	}
-	clsDate IncreaseDateByXDays(int Number) {
-		return IncreaseDateByXDays(*this, Number);
-	}
-	clsDate IncreaseDateByOneWeek(clsDate Date) {
-		for (int i = 0; i < 7; i++) {
-			Date = IncreaseDateByOneDay(Date);
-		}
-		return Date;
-	}
-	clsDate IncreaseDateByOneWeek() {
-		return IncreaseDateByOneWeek(*this);
-	}
-	clsDate IncreaseDateByXWeeks(clsDate Date, int Number) {
-		for (int i = 0; i < Number; i++) {
-			Date = IncreaseDateByOneWeek(Date);
-		}
-		return Date;
-	}
-	clsDate IncreaseDateByXWeeks(int Number) {
-		return IncreaseDateByXWeeks(*this, Number);
-	}
-	clsDate IncreaseDateByOneMonth(clsDate Date) {
-		if (IsLastMonthInYear(Date._Month)) {
-			Date._Month = 1;
-			Date._Year++;
-		}
-		else
-			Date._Month++;
-		short NumberOfDaysInCurrentMonth = NumberOfDaysInMonth(Date._Year, Date._Month);
-		if (Date._Day > NumberOfDaysInCurrentMonth) {
-			Date._Day = NumberOfDaysInCurrentMonth;
-		}
+		 return Date;
+	 }
+	void IncreaseDateByOneMonth() {
+		  IncreaseDateByOneMonth(*this);
+	 }
+	clsDate IncreaseDateByXMonths(clsDate& Date, int Month) {
+		 for (int i = 0; i < Month; i++)
+			 Date = IncreaseDateByOneMonth(Date);
 
-		return Date;
-	}
-	clsDate IncreaseDateByOneMonth() {
-		return IncreaseDateByOneMonth(*this);
-	}
-	clsDate IncreaseDateByXMonths(clsDate Date, int Month) {
-		for (int i = 0; i < Month; i++)
-			Date = IncreaseDateByOneMonth(Date);
+		 return Date;
+	 }
+	void IncreaseDateByXMonths(int Month) {
+		  IncreaseDateByXMonths(*this, Month);
+	 }
+	clsDate IncreaseDateByOneYear(clsDate& Date) {
+		 Date._Year++;
+		 return Date;
+	 }
+	void IncreaseDateByOneYear() {
+		 IncreaseDateByOneYear(*this);
+	 }
+	clsDate IncreaseDateByXYears(clsDate& Date, int Year) {
+		 for (int i = 0; i < Year; i++)
+			 Date = IncreaseDateByOneYear(Date);
+		 return Date;
+	 }
+	void IncreaseDateByXYears(int Year) {
+		  IncreaseDateByXYears(*this, Year);
+	 }
+	clsDate IncreaseDateByXYearsFaster(clsDate& Date, int Year) {
+		 Date._Year += Year;
+		 return Date;
+	 }
+	void IncreaseDateByXYearsFaster(int Year) {
+		  IncreaseDateByXYearsFaster(*this, Year);
+	 }
+	clsDate IncreaseDateByOneDecade(clsDate& Date) {
+		 Date._Year += 10;
+		 return Date;
+	 }
+	void IncreaseDateByOneDecade() {
+		  IncreaseDateByOneDecade(*this);
+	 }
+	clsDate IncreaseDateByXDecades(clsDate& Date, int Decade) {
+		 //int Number = NumberOfDaysInYear(Date.Year);
+		 for (int i = 0; i < Decade * 10; i++)
+			 Date = IncreaseDateByOneYear(Date);
+		 return Date;
+	 }
+	void IncreaseDateByXDecades(int Decade) {
+		  IncreaseDateByXDecades(*this, Decade);
+	 }
+	clsDate IncreaseDateByXDecadesFaster(clsDate& Date, int Decade) {
+		 Date._Year += Decade * 10;
+		 return Date;
+	 }
+	void IncreaseDateByXDecadesFaster(int Decade) {
+		  IncreaseDateByXDecadesFaster(*this, Decade);
+	 }
+	clsDate IncreaseDateByOneCentury(clsDate& Date) {
+		 Date._Year += 100;
+		 return Date;
+	 }
+	void IncreaseDateByOneCentury() {
+		  IncreaseDateByOneCentury(*this);
+	 }
+	clsDate IncreaseDateByOneMillennium(clsDate& Date) {
+		 Date._Year += 1000;
+		 return Date;
+	 }
+	void IncreaseDateByOneMillennium() {
+		  IncreaseDateByOneMillennium(*this);
+	 }
+	clsDate DecreaseDateByOneDay(clsDate& Date) {
+		 if (Date._Day == 1) {
+			 if (Date._Month == 1) {
+				 Date._Month = 12;
+				 Date._Day = 31;
+				 Date._Year--;
+			 }
+			 else {
+				 Date._Month--;
+				 Date._Day = NumberOfDaysInMonth(Date._Year, Date._Month);
+			 }
+		 }
+		 else
+			 Date._Day--;
+		 return Date;
+	 }
+	void DecreaseDateByOneDay() {
 
-		return Date;
-	}
-	clsDate IncreaseDateByXMonths(int Month) {
-		return IncreaseDateByXMonths(*this, Month);
-	}
-	clsDate IncreaseDateByOneYear(clsDate Date) {
-		Date._Year++;
-		return Date;
-	}
-	clsDate IncreaseDateByOneYear() {
-		IncreaseDateByOneYear(*this);
-	}
-	clsDate IncreaseDateByXYears(clsDate Date, int Year) {
-		for (int i = 0; i < Year; i++)
-			Date = IncreaseDateByOneYear(Date);
-		return Date;
-	}
-	clsDate IncreaseDateByXYears(int Year) {
-		return IncreaseDateByXYears(*this, Year);
-	}
-	clsDate IncreaseDateByXYearsFaster(clsDate Date, int Year) {
-		Date._Year += Year;
-		return Date;
-	}
-	clsDate IncreaseDateByXYearsFaster(int Year) {
-		return IncreaseDateByXYearsFaster(*this, Year);
-	}
-	clsDate IncreaseDateByOneDecade(clsDate Date) {
-		Date._Year += 10;
-		return Date;
-	}
-	clsDate IncreaseDateByOneDecade() {
-		return IncreaseDateByOneDecade(*this);
-	}
-	clsDate IncreaseDateByXDecades(clsDate Date, int Decade) {
-		//int Number = NumberOfDaysInYear(Date.Year);
-		for (int i = 0; i < Decade * 10; i++)
-			Date = IncreaseDateByOneYear(Date);
-		return Date;
-	}
-	clsDate IncreaseDateByXDecades(int Decade) {
-		return IncreaseDateByXDecades(*this, Decade);
-	}
-	clsDate IncreaseDateByXDecadesFaster(clsDate Date, int Decade) {
-		Date._Year += Decade * 10;
-		return Date;
-	}
-	clsDate IncreaseDateByXDecadesFaster(int Decade) {
-		return IncreaseDateByXDecadesFaster(*this, Decade);
-	}
-	clsDate IncreaseDateByOneCentury(clsDate Date) {
-		Date._Year += 100;
-		return Date;
-	}
-	clsDate IncreaseDateByOneCentury() {
-		return IncreaseDateByOneCentury(*this);
-	}
-	clsDate IncreaseDateByOneMillennium(clsDate Date) {
-		Date._Year += 1000;
-		return Date;
-	}
-	clsDate IncreaseDateByOneMillennium() {
-		return IncreaseDateByOneMillennium(*this);
-	}
-	clsDate DecreaseDateByOneDay(clsDate Date) {
-		if (Date._Day == 1) {
-			if (Date._Month == 1) {
-				Date._Month = 12;
-				Date._Day = 31;
-				Date._Year--;
-			}
-			else {
-				Date._Month--;
-				Date._Day = NumberOfDaysInMonth(Date._Year, Date._Month);
-			}
-		}
-		else
-			Date._Day--;
-		return Date;
-	}
-	clsDate DecreaseDateByOneDay() {
+		  DecreaseDateByOneDay(*this);
+	 }
+	clsDate DecreaseDateByXDays(clsDate& Date, int Number) {
+		 for (int i = 0; i < Number; i++) {
+			 Date = DecreaseDateByOneDay(Date);
+		 }
+		 return Date;
+	 }
+	void DecreaseDateByXDays(int Number) {
+		  DecreaseDateByXDays(*this, Number);
+	 }
+	clsDate DecreaseDateByOneWeek(clsDate& Date) {
+		 for (int i = 0; i < 7; i++) {
+			 Date = DecreaseDateByOneDay(Date);
+		 }
+		 return Date;
+	 }
+	void DecreaseDateByOneWeek() {
+		  DecreaseDateByOneWeek(*this);
+	 }
+	clsDate DecreaseDateByXWeeks(clsDate& Date, int weeks) {
 
-		return DecreaseDateByOneDay(*this);
-	}
-	clsDate DecreaseDateByXDays(clsDate Date, int Number) {
-		for (int i = 0; i < Number; i++) {
-			Date = DecreaseDateByOneDay(Date);
-		}
-		return Date;
-	}
-	clsDate DecreaseDateByXDays(int Number) {
-		return DecreaseDateByXDays(*this, Number);
-	}
-	clsDate DecreaseDateByOneWeek(clsDate Date) {
-		for (int i = 0; i < 7; i++) {
-			Date = DecreaseDateByOneDay(Date);
-		}
-		return Date;
-	}
-	clsDate DecreaseDateByOneWeek() {
-		return DecreaseDateByOneWeek(*this);
-	}
-	clsDate DecreaseDateByXWeeks(clsDate Date, int weeks) {
+		 for (int i = 0; i < weeks; i++) {
+			 Date = DecreaseDateByOneWeek(Date);
+		 }
+		 return Date;
+	 }
+	void DecreaseDateByXWeeks( int weeks) {
+		  DecreaseDateByXWeeks(*this, weeks);
+	 }
+	clsDate DecreaseDateByOneMonth(clsDate& Date) {
+		 if (Date._Month == 1) {
+			 Date._Month = 12;
+			 Date._Year--;
+		 }
+		 else
+			 Date._Month--;
+		 short NumberOfDaysInCurrentMonth = NumberOfDaysInMonth(Date._Year, Date._Month);
+		 if (Date._Day > NumberOfDaysInCurrentMonth) {
+			 Date._Day = NumberOfDaysInCurrentMonth;
+		 }
 
-		for (int i = 0; i < weeks; i++) {
-			Date = DecreaseDateByOneWeek(Date);
-		}
-		return Date;
-	}
-	clsDate DecreaseDateByXWeeks(int weeks) {
-		return DecreaseDateByXWeeks(*this, weeks);
-	}
-	clsDate DecreaseDateByOneMonth(clsDate Date) {
-		if (Date._Month == 1) {
-			Date._Month = 12;
-			Date._Year--;
-		}
-		else
-			Date._Month--;
-		short NumberOfDaysInCurrentMonth = NumberOfDaysInMonth(Date._Year, Date._Month);
-		if (Date._Day > NumberOfDaysInCurrentMonth) {
-			Date._Day = NumberOfDaysInCurrentMonth;
-		}
+		 return Date;
+	 }
+	void DecreaseDateByOneMonth() {
+		  DecreaseDateByOneMonth(*this);
+	 }
+	clsDate DecreaseDateByXMonths(clsDate& Date, int Month) {
+		 for (int i = 0; i < Month; i++)
+			 Date = DecreaseDateByOneMonth(Date);
 
-		return Date;
-	}
-	clsDate DecreaseDateByOneMonth() {
-		return DecreaseDateByOneMonth(*this);
-	}
-	clsDate DecreaseDateByXMonths(clsDate Date, int Month) {
-		for (int i = 0; i < Month; i++)
-			Date = DecreaseDateByOneMonth(Date);
-
-		return Date;
-	}
-	clsDate DecreaseDateByXMonths(int Month) {
-		return DecreaseDateByXMonths(*this, Month);
-	}
-	clsDate DecreaseDateByOneYear(clsDate Date) {
-		Date._Year--;
-		return Date;
-	}
-	clsDate DecreaseDateByOneYear() {
-		return DecreaseDateByOneYear(*this);
-	}
-	clsDate DecreaseDateByXYears(clsDate Date, int Year) {
-		for (int i = 0; i < Year; i++)
-			Date = DecreaseDateByOneYear(Date);
-		return Date;
-	}
-	clsDate DecreaseDateByXYears(int Year) {
-		return DecreaseDateByXYears(*this, Year);
-	}
-	clsDate DecreaseDateByXYearsFaster(clsDate Date, int Year) {
-		Date._Year -= Year;
-		return Date;
-	}
-	clsDate DecreaseDateByXYearsFaster(int Year) {
-		return DecreaseDateByXYearsFaster(Year);
-	}
-	clsDate DecreaseDateByOneDecade(clsDate Date) {
-		Date._Year -= 10;
-		return Date;
-	}
-	clsDate DecreaseDateByOneDecade() {
-		return DecreaseDateByOneDecade(*this);
-	}
-	clsDate DecreaseDateByXDecades(clsDate Date, int Decade) {
-		//int Number = NumberOfDaysInYear(Date.Year);
-		for (int i = 0; i < Decade * 10; i++)
-			Date = DecreaseDateByOneYear(Date);
-		return Date;
-	}
-	clsDate DecreaseDateByXDecades(int Decade) {
-		return DecreaseDateByXDecades(*this, Decade);
-	}
-	clsDate DecreaseDateByXDecadesFaster(clsDate Date, int Decade) {
-		Date._Year -= Decade * 10;
-		return Date;
-	}
-	clsDate DecreaseDateByXDecadesFaster(int Decade) {
-		return DecreaseDateByXDecadesFaster(*this, Decade);
-	}
-	clsDate DecreaseDateByOneCentury(clsDate Date) {
-		Date._Year -= 100;
-		return Date;
-	}
-	clsDate DecreaseDateByOneCentury() {
-		return DecreaseDateByOneCentury(*this);
-	}
-	clsDate DecreaseDateByOneMillennium(clsDate Date) {
-		Date._Year -= 1000;
-		return Date;
-	}
-	clsDate DecreaseDateByOneMillennium() {
-		return DecreaseDateByOneMillennium(*this);
-	}
+		 return Date;
+	 }
+	void DecreaseDateByXMonths(int Month) {
+		 DecreaseDateByXMonths(*this, Month);
+	 }
+	clsDate DecreaseDateByOneYear(clsDate& Date) {
+		 Date._Year--;
+		 return Date;
+	 }
+	void DecreaseDateByOneYear() {
+		 DecreaseDateByOneYear(*this);
+	 }
+	clsDate DecreaseDateByXYears(clsDate& Date, int Year) {
+		 for (int i = 0; i < Year; i++)
+			 Date = DecreaseDateByOneYear(Date);
+		 return Date;
+	 }
+	void DecreaseDateByXYears(int Year) {
+		  DecreaseDateByXYears(*this, Year);
+	 }
+	clsDate DecreaseDateByXYearsFaster(clsDate& Date, int Year) {
+		 Date._Year -= Year;
+		 return Date;
+	 }
+	void DecreaseDateByXYearsFaster(int Year) {
+		  DecreaseDateByXYearsFaster(Year);
+	 }
+	clsDate DecreaseDateByOneDecade(clsDate& Date) {
+		 Date._Year -= 10;
+		 return Date;
+	 }
+	void DecreaseDateByOneDecade() {
+		  DecreaseDateByOneDecade(*this);
+	 }
+	clsDate DecreaseDateByXDecades(clsDate& Date, int Decade) {
+		 //int Number = NumberOfDaysInYear(Date.Year);
+		 for (int i = 0; i < Decade * 10; i++)
+			 Date = DecreaseDateByOneYear(Date);
+		 return Date;
+	 }
+	void DecreaseDateByXDecades(int Decade) {
+		  DecreaseDateByXDecades(*this, Decade);
+	 }
+	clsDate DecreaseDateByXDecadesFaster(clsDate& Date, int Decade) {
+		 Date._Year -= Decade * 10;
+		 return Date;
+	 }
+	void DecreaseDateByXDecadesFaster(int Decade) {
+		  DecreaseDateByXDecadesFaster(*this,Decade);
+	 }
+	clsDate DecreaseDateByOneCentury(clsDate& Date) {
+		 Date._Year -= 100;
+		 return Date;
+	 }
+	void DecreaseDateByOneCentury() {
+		  DecreaseDateByOneCentury(*this);
+	 }
+	clsDate DecreaseDateByOneMillennium(clsDate& Date) {
+		 Date._Year -= 1000;
+		 return Date;
+	 }
+	void DecreaseDateByOneMillennium() {
+		  DecreaseDateByOneMillennium(*this);
+	 }
+	
 	static void SwapDates(clsDate& Date, clsDate& Date2) {
 		clsDate temp;
 		temp = Date;
