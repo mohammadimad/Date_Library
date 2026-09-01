@@ -283,23 +283,6 @@ public:
 	static bool IsLastMonthInYear(short Month) {
 		return (Month == 12);
 	}
-	static clsDate IncreaseDateByOneDay(clsDate Date) {
-		if (IsLastDayInMonth(Date)) {
-			if (IsLastMonthInYear(Date._Month)) {
-				Date._Month = 1;
-				Date._Day = 1;
-				Date._Year++;
-			}
-			else {
-				Date._Day = 1;
-				Date._Month++;
-			}
-		}
-		else {
-			Date._Day++;
-		}
-		return Date;
-	}
 	static clsDate IncreaseDateByOneDay(clsDate& Date) {
 		 if (IsLastDayInMonth(Date)) {
 			 if (IsLastMonthInYear(Date._Month)) {

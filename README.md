@@ -45,16 +45,11 @@ The project is configured for the Visual Studio 2019 `v142` toolset and does not
 msbuild "Date Library.vcxproj" /p:Configuration=Release /p:Platform=x64
 ```
 
-## Current Build Status
+## Build Verification
 
-The current source does **not** complete compilation. `clsDate.h` defines both of these overloads:
+The ambiguous `IncreaseDateByOneDay` overload conflict has been resolved by keeping the reference-based function that mutates the supplied date. A full Release rebuild succeeds with the installed v145 toolset, and the example executable completes with exit code `0`.
 
-```cpp
-IncreaseDateByOneDay(clsDate Date)
-IncreaseDateByOneDay(clsDate& Date)
-```
-
-Calls with an lvalue are ambiguous, producing compiler error `C2668` at several locations. One overload should be removed or renamed, or the API should clearly separate mutating and value-returning operations. The source also reports warnings for an extra semicolon after an `#include` directive and a `size_t`-to-`short` conversion.
+The compiler still reports two non-blocking warnings: an extra semicolon after an `#include` directive and a `size_t`-to-`short` conversion.
 
 ## Current Scope
 
@@ -65,7 +60,7 @@ Calls with an lvalue are ambiguous, producing compiler error `C2668` at several 
 
 ## Possible Improvements
 
-- Resolve the ambiguous `IncreaseDateByOneDay` API and restore a clean build
+- Remove the remaining compiler warnings
 - Replace narrow counters with appropriate integer and size types
 - Validate parsing before indexing date components
 - Add immutable operations, const-correctness, and clear naming for mutating methods
